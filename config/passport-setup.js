@@ -17,7 +17,7 @@ function verify(req, accessToken, refreshToken, profile, done) {
   console.log('passport callback function fired');
   console.log(profile);
   return done(null, profile);
-}
+};
 
 const googleOptions = {
   clientID: keys.google.clientID,
