@@ -12,7 +12,7 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-function verify(accessToken, refreshToken, profile, done) {
+function verify(req, accessToken, refreshToken, profile, done) {
   // passport callback function
   console.log('passport callback function fired');
   console.log(profile);
@@ -23,6 +23,7 @@ const googleOptions = {
   clientID: keys.google.clientID,
   clientSecret: keys.google.clientSecret,
   callbackURL: '/auth/callback',
+  passReqToCallback: true,
   scope: ['profile']
 };
 
