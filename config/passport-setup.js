@@ -12,29 +12,18 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
-// passport.serializeUser(function (user, cb) {
-//   process.nextTick(function () {
-//     cb(null, { id: user.id, username: user.username, name: user.name });
-//   });
-// });
-// passport.deserializeUser(function (user, cb) {
-//   process.nextTick(function () {
-//     return cb(null, user);
-//   });
-// });
+function verify(accessToken, refreshToken, profile, done) {
+  // passport callback function
+  console.log('passport callback function fired');
+  console.log(profile);
+  return done(null, profile);
+}
 
-passport.use(
-  new GoogleStrategy({
-    // options for the google strat
-    clientID: keys.google.clientID,
-    clientSecret: keys.google.clientSecret,
-    callbackURL: '/auth/google/redirect',
-    scope: ['profile'],
-    state: true
-  }, (accessToken, refreshToken, profile, done) => {
-    // passport callback function
-    console.log('passport callback function fired');
-    console.log(profile);
-    done(null, profile);
-  })
-);
+const googleOptions = {
+  clientID: keys.google.clientID,
+  clientSecret: keys.google.clientSecret,
+  callbackURL: '/auth/callback',
+  scope: ['profile']
+};
+
+passport.use( new GoogleStrategy(googleOptions, verify));
