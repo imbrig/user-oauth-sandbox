@@ -27,4 +27,4 @@ const googleOptions = {
   scope: ['profile']
 };
 
-passport.use( new GoogleStrategy(googleOptions, verify));
+passport.use(new GoogleStrategy(googleOptions, verify));
