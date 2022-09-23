@@ -14,13 +14,22 @@ router.get('/logout', (req, res) => {
 });
 
 // auth with google
-router.get('/google', passport.authenticate('google', {
-  scope:['profile']
-}));
+// router.get('/google', passport.authenticate('google', {
+//   scope:['profile', 'email']
+// }));
 
 // callback route for google to redirect to
-router.get('/callback', passport.authenticate('google'), (req, res) => {
-  // res.send(req.user);
+// router.get('/callback', passport.authenticate('google'), (req, res) => {
+//   res.redirect('/profile');
+// });
+
+// auth with cognito
+router.get('/cognito', passport.authenticate('cognito-oauth2', {
+  scope: ['openid', 'profile', 'email']
+}));
+
+// callback route for cognito to redirect to
+router.get('/callback', passport.authenticate('cognito-oauth2'), (req, res) => {
   res.redirect('/profile');
 });
 
