@@ -1,6 +1,7 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20');
-const CognitoStrategy = require('./cognito-oauth2');
+// const GoogleStrategy = require('passport-google-oauth20');
+// const CognitoStrategy = require('./cognito-oauth2');
+const OpenIDConnectStrategy = require('passport-openidconnect');
 const keys = require('./keys');
 
 // cookie find user id
@@ -20,21 +21,33 @@ function verify(req, accessToken, refreshToken, profile, done) {
   return done(null, profile);
 };
 
-const googleOptions = {
-  clientID: keys.google.clientID,
-  clientSecret: keys.google.clientSecret,
-  callbackURL: '/auth/callback',
-  passReqToCallback: true,
-  scope: ['profile', 'email']
-};
+// const googleOptions = {
+//   clientID: keys.google.clientID,
+//   clientSecret: keys.google.clientSecret,
+//   callbackURL: '/auth/callback',
+//   passReqToCallback: true,
+//   scope: ['profile', 'email']
+// };
 // passport.use(new GoogleStrategy(googleOptions, verify));
 
-const cognitoOptions = {
-  clientID: keys.cognito.clientID,
-  clientSecret: keys.cognito.clientSecret,
-  callbackURL: '/auth/callback',
-  passReqToCallback: true,
-  scope: ['openid', 'profile', 'email'],
-  clientDomain: keys.cognito.clientDomain
+// const cognitoOptions = {
+//   clientID: keys.cognito.clientID,
+//   clientSecret: keys.cognito.clientSecret,
+//   callbackURL: '/auth/callback',
+//   passReqToCallback: true,
+//   scope: ['openid', 'profile', 'email'],
+//   clientDomain: keys.cognito.clientDomain
+// };
+// passport.use(new CognitoStrategy(cognitoOptions, verify));
+
+const openidOptions = {
+  issuer: 'https://auth.image-metrics.com/',
+  authorizationURL: 'https://auth.image-metrics.com/oauth2/authorize',
+  tokenURL: 'https://auth.image-metrics.com/oauth2/token',
+  userInfoURL: 'https://auth.image-metrics.com/oauth2/userInfo',
+  clientID: '7tvp9u4du5aa4oa3r428glaadh',
+  clientSecret: 'sigphptavjm80qncadpaa1pmeu7lcdjmsahmhvrsukth2h9qnnu',
+  callbackURL: '/oauth2/redirect',
+  scope: ['profile']
 };
-passport.use(new CognitoStrategy(cognitoOptions, verify));
+passport.use(new OpenIDConnectStrategy(openidOptions, verify));
