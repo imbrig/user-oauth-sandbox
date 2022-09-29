@@ -46,7 +46,6 @@ const openidOptions = {
   tokenURL: 'https://auth.image-metrics.com/oauth2/token',
   userInfoURL: 'https://auth.image-metrics.com/oauth2/userInfo',
   clientID: '1e4on286diq3rgqbopu0ldirjs',
-  //clientSecret: 'sigphptavjm80qncadpaa1pmeu7lcdjmsahmhvrsukth2h9qnnu',
   callbackURL: 'http://localhost:3000/oauth2/redirect',
   passReqToCallback: true,
   scope: ['profile']
