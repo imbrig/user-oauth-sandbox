@@ -42,12 +42,13 @@ function verify(req, accessToken, refreshToken, profile, done) {
 
 const openidOptions = {
   issuer: 'https://auth.image-metrics.com/',
-  authorizationURL: 'https://auth.image-metrics.com/oauth2/authorize',
+  authorizationURL: 'https://auth.image-metrics.com',
   tokenURL: 'https://auth.image-metrics.com/oauth2/token',
   userInfoURL: 'https://auth.image-metrics.com/oauth2/userInfo',
-  clientID: '7tvp9u4du5aa4oa3r428glaadh',
-  clientSecret: 'sigphptavjm80qncadpaa1pmeu7lcdjmsahmhvrsukth2h9qnnu',
-  callbackURL: '/oauth2/redirect',
+  clientID: '1e4on286diq3rgqbopu0ldirjs',
+  //clientSecret: 'sigphptavjm80qncadpaa1pmeu7lcdjmsahmhvrsukth2h9qnnu',
+  callbackURL: 'http://localhost:3000/oauth2/redirect',
+  passReqToCallback: true,
   scope: ['profile']
 };
 passport.use(new OpenIDConnectStrategy(openidOptions, verify));
