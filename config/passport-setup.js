@@ -1,5 +1,4 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20');
 const CognitoStrategy = require('./cognito-oauth2');
 const keys = require('./keys');
 
@@ -20,21 +19,12 @@ function verify(req, accessToken, refreshToken, profile, done) {
   return done(null, profile);
 };
 
-const googleOptions = {
-  clientID: keys.google.clientID,
-  clientSecret: keys.google.clientSecret,
-  callbackURL: '/auth/callback',
-  passReqToCallback: true,
-  scope: ['profile', 'email']
-};
-// passport.use(new GoogleStrategy(googleOptions, verify));
-
 const cognitoOptions = {
   clientID: keys.cognito.clientID,
   clientSecret: keys.cognito.clientSecret,
   callbackURL: '/auth/callback',
   passReqToCallback: true,
-  scope: ['openid', 'profile', 'email'],
+  scope: ['openid'],
   clientDomain: keys.cognito.clientDomain
 };
 passport.use(new CognitoStrategy(cognitoOptions, verify));

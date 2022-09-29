@@ -13,19 +13,9 @@ router.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-// auth with google
-// router.get('/google', passport.authenticate('google', {
-//   scope:['profile', 'email']
-// }));
-
-// callback route for google to redirect to
-// router.get('/callback', passport.authenticate('google'), (req, res) => {
-//   res.redirect('/profile');
-// });
-
 // auth with cognito
 router.get('/cognito', passport.authenticate('cognito-oauth2', {
-  scope: ['openid', 'profile', 'email']
+  scope: ['openid']
 }));
 
 // callback route for cognito to redirect to
